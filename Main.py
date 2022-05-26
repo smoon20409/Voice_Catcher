@@ -3,6 +3,7 @@ from pynput.keyboard import Controller
 import os
 import threading
 import speech_recognition as sr
+from playsound import playsound
 
 class voiceloop(threading.Thread):
 
@@ -57,6 +58,7 @@ class voiceloop(threading.Thread):
                 return False
 
             if voice_data == "보이스":
+                playsound('sample.wav')
                 return str('네 보이스 입니다.')
 
 
