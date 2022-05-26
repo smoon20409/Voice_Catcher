@@ -59,6 +59,7 @@ class voiceloop(threading.Thread):
             if voice_data == "보이스":
                 return str('네 보이스 입니다.')
 
+
             return str(voice_data)
 
 
