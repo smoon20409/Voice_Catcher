@@ -56,6 +56,9 @@ class voiceloop(threading.Thread):
                 print("could not understand audio")
                 return False
 
+            if voice_data == "보이스":
+                return str('네 보이스 입니다.')
+
             return str(voice_data)
 
 
@@ -66,7 +69,7 @@ def on_closing():
 
 
 root = Tk()
-root.title("Voice Collector")
+root.title("Voice catcher")
 root.geometry("200x200+50+50")
 
 mic1_img = PhotoImage(file="mic1.png")
