@@ -5,6 +5,8 @@ import threading
 import speech_recognition as sr
 from playsound import playsound
 
+playsound('sample.wav')
+
 class voiceloop(threading.Thread):
 
     mykeyboard = Controller()
@@ -59,7 +61,7 @@ class voiceloop(threading.Thread):
 
             if voice_data == "보이스":
                 playsound('sample.wav')
-                return str('네 보이스 입니다.')
+                return False
 
 
             return str(voice_data)
