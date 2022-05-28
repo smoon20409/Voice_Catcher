@@ -4,8 +4,9 @@ import os
 import threading
 import speech_recognition as sr
 from playsound import playsound
-
-playsound('sample.wav')
+from datetime import datetime
+from gtts import gTTS
+from IPython.display import Audio
 
 class voiceloop(threading.Thread):
 
@@ -36,7 +37,7 @@ class voiceloop(threading.Thread):
 
             try:
                 img_frm.config(image=mic3_img)
-                print("기다리시고")
+                print("음성을 기록합니다.")
                 listener.adjust_for_ambient_noise(raw_voice)
 
                 listener.dynamic_energy_adjustment_damping=0.2
@@ -45,7 +46,7 @@ class voiceloop(threading.Thread):
 
                 img_frm.config(image=mic1_img)
 
-                print("말하세요!")
+                print("음성을 입력합니다.")
                 audio = listener.listen(raw_voice)
 
                 img_frm.config(image=mic2_img)
@@ -60,9 +61,12 @@ class voiceloop(threading.Thread):
                 return False
 
             if voice_data == "보이스":
-                playsound('sample.wav')
-                return False
-
+                return playsound('sample.wav')
+            if voice_data == "시간알려줘":
+                now = datetime.now()
+                time = gTTS("현재 시간은" + now.hour + "시" + now.minute + "분" + now.second + "초 입니다")
+                time.save('time.wav')
+                return display(Audio('time.wav', autoplay=True))
 
             return str(voice_data)
 
