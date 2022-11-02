@@ -2,10 +2,16 @@ from tkinter import *
 from pynput.keyboard import Controller
 import os
 import threading
+import requests
 import speech_recognition as sr
 from playsound import playsound
+import json
 
-playsound('sample.wav')
+apikey = "5e00f074dd8cde11ee823299f474c77b"
+city = "Seoul"
+api = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={apikey}"
+result = requests.get(api)
+data = json.loads(result.text)
 
 class voiceloop(threading.Thread):
 
@@ -36,7 +42,7 @@ class voiceloop(threading.Thread):
 
             try:
                 img_frm.config(image=mic3_img)
-                print("기다리시고")
+                print("잠시만 기다려주세요")
                 listener.adjust_for_ambient_noise(raw_voice)
 
                 listener.dynamic_energy_adjustment_damping=0.2
@@ -45,7 +51,7 @@ class voiceloop(threading.Thread):
 
                 img_frm.config(image=mic1_img)
 
-                print("말하세요!")
+                print("목소리를 수집합니다...")
                 audio = listener.listen(raw_voice)
 
                 img_frm.config(image=mic2_img)
@@ -56,11 +62,15 @@ class voiceloop(threading.Thread):
                 pass
 
             except sr.UnknownValueError:
-                print("could not understand audio")
+                print("소리를 인식하기 힘듭니다.")
                 return False
 
             if voice_data == "보이스":
                 playsound('sample.wav')
+                return False
+
+            if voice_data == "날씨" or "오늘의 날씨":
+                print("날씨는 ",data["weather"][0]["description"],"입니다.")
                 return False
 
 
