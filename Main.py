@@ -7,12 +7,13 @@ import speech_recognition as sr
 from playsound import playsound
 import json
 
-apikey = "5e00f074dd8cde11ee823299f474c77b"
+apikey = "8acd32db4d29ff5cb142deafb9fd1152"
 city = "Seoul"
-api = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={apikey}"
+lang = "kr"
+
+api = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={apikey}&lang={lang}"
 result = requests.get(api)
 data = json.loads(result.text)
-
 class voiceloop(threading.Thread):
 
     mykeyboard = Controller()
@@ -65,12 +66,14 @@ class voiceloop(threading.Thread):
                 print("소리를 인식하기 힘듭니다.")
                 return False
 
-            if voice_data == "보이스":
-                playsound('sample.wav')
+            if voice_data == "안녕":
+                playsound('Main.wav')
                 return False
 
             if voice_data == "날씨" or "오늘의 날씨":
-                print("날씨는 ",data["weather"][0]["description"],"입니다.")
+                if data["weather"][0]["description"] == "맑음":
+                    print("날씨는 ",data["weather"][0]["description"],"입니다.")
+                    playsound('clear.wav')
                 return False
 
 
