@@ -74,6 +74,20 @@ class voiceloop(threading.Thread):
                 if data["weather"][0]["description"] == "맑음":
                     print("날씨는 ",data["weather"][0]["description"],"입니다.")
                     playsound('clear.wav')
+
+                if data["weather"][0]["description"] == "흐림":
+                    print("날씨는 ",data["weather"][0]["description"],"입니다.")
+                    playsound('cloudy.wav')
+
+                if data["weather"][0]["description"] == "비":
+                    print("날씨는 ",data["weather"][0]["description"],"입니다.")
+                    playsound('rain.wav')
+
+                if data["weather"][0]["description"] == "눈":
+                    print("날씨는 ",data["weather"][0]["description"],"입니다.")
+                    playsound('snow.wav')
+
+
                 return False
 
 
